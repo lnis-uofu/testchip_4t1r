@@ -1,0 +1,9 @@
+calibre*
+.*
+!.git*
+_*
+*.log
+cds.*
+simulations
+libs
+README
