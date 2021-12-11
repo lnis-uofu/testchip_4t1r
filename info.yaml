@@ -1,0 +1,19 @@
+---
+project:
+  description: "ReRAM based test chip"
+  foundry: "SkyWater"
+  git_url: ""
+  organization: "LNIS Laboratory"
+  organization_url: "https://sites.google.com/site/pegaillardon/home"
+  owner: "Lea Enginger"
+  process: "s8"
+  project_name: "Caravel Analog User"
+  project_id: "00000000"
+  tags:
+    - "Chipignite"
+    - "ReRAM"
+  category: ""
+  top_level_netlist: "caravel/verilog/gl/caravan.v"
+  user_level_netlist: "verilog/rtl/user_analog_project_wrapper.v"
+  version: ""
+  cover_image: ""
