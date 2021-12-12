@@ -28,7 +28,16 @@ jobs:
 
       - name: Run The Precheck
         run: bash ${GITHUB_WORKSPACE}/.github/scripts/precheck/run-precheck.sh
-  
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: precheck_logs
+          retention-days: 1
+          path: |
+            checks/**/*.*
+
   precheck-drc:
     timeout-minutes: 720
     runs-on: ubuntu-latest
@@ -48,7 +57,16 @@ jobs:
 
       - name: Run The Precheck
         run: bash ${GITHUB_WORKSPACE}/.github/scripts/precheck/run-precheck-drc.sh
-  
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: drc_logs
+          retention-days: 1
+          path: |
+            checks/**/*.*
+
   dv_rtl:
     runs-on: ubuntu-latest
     steps:
@@ -73,7 +91,15 @@ jobs:
        - name: Run DV tests
          # Run test number 0,1,2,3,4 in one job                            <test-ids>   <sim-mode>
          run: bash ${GITHUB_WORKSPACE}/.github/scripts/dv/run-dv-wrapper.sh 0             RTL
-
+       
+       - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: dv_log
+          retention-days: 1
+          path: |
+            checks/**/*.*
   dv_gl:
     runs-on: ubuntu-latest
     steps:
@@ -98,3 +124,12 @@ jobs:
        - name: Run DV tests
          # Run test number 0,1,2,3,4 in one job                             <test-ids>   <sim-mode>
          run: bash ${GITHUB_WORKSPACE}/.github/scripts/dv/run-dv-wrapper.sh 0              GL
+
+       - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: dv_gl_logs
+          retention-days: 1
+          path: |
+            checks/**/*.*
