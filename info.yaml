@@ -6,7 +6,7 @@ project:
   organization: "LNIS Laboratory"
   organization_url: "https://sites.google.com/site/pegaillardon/home"
   owner: "Lea Enginger"
-  process: "s8"
+  process: "sky130A"
   project_name: "testchip_4t1r"
   project_id: "00000000"
   tags:
