@@ -4,9 +4,9 @@ project:
   foundry: "SkyWater"
   git_url: "https://github.com/lnis-uofu/testchip_4t1r.git"
   organization: "LNIS Laboratory"
-  organization_url: "https://sites.google.com/site/pegaillardon/home"
+  organization_url: "https://www.lnis-uofu.com/"
   owner: "Lea Enginger"
-  process: "sky130A"
+  process: "SKY130"
   project_name: "testchip_4t1r"
   project_id: "00000000"
   tags:
