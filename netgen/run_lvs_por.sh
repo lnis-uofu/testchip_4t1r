@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # SPDX-FileCopyrightText: 2020 Efabless Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,23 +14,11 @@
 # limitations under the License.
 # SPDX-License-Identifier: Apache-2.0
 
-# By default build pdk since we don't need the other script for the main purpose
-export SKIP_PDK_BUILD=${1:-0}
-
-export TARGET_PATH=$(pwd)
-git clone  --depth 1 --branch mpw-3 https://github.com/efabless/mpw_precheck.git
-
-docker pull efabless/mpw_precheck:latest
-
-
-if [ $SKIP_PDK_BUILD -eq 0 ]; then
-    cd $TARGET_PATH/..
-    export PDK_ROOT=$(pwd)/precheck_pdks
-    mkdir $PDK_ROOT
-    cd $TARGET_PATH/mpw_precheck/dependencies
-    sh build-pdk.sh
-    cd $TARGET_DIR
-
-fi
-
-exit 0
+#--------------------------------------------------------------------------------
+# Run LVS on the example_por layout
+#
+# NOTE:  By specifying the testbench for the schematic-side netlist, the proper
+# includes used by the testbench simulation are picked up.  Otherwise, the LVS
+# itself compares just the simple_por subcircuit from the testbench.
+#--------------------------------------------------------------------------------
+netgen -batch lvs "example_por.spice example_por" "../xschem/example_por_tb.spice example_por" /usr/share/pdk/sky130A/libs.tech/netgen/sky130A_setup.tcl comp.out
