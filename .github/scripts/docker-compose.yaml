@@ -1,0 +1,43 @@
+version: "3.3"
+services:
+  precheck:
+    image: efabless/mpw_precheck:latest
+    build: .
+    user: root
+    tty: true
+    environment:
+      - PDK_ROOT=/home/rram_4t1r/precheck_pdks/skywater-pdk
+      - TARGET_PATH=/home/rram_4t1r/
+      - CARAVEL_ROOT=/home/rram_4t1r/caravel/
+      - PRECHECK_ROOT=/home/rram_4t1r/mpw_precheck/
+      - OUTPUT_DIRECTORY=/home/rram_4t1r/checks
+      - command="cd $PRECHECK_ROOT ; python3 mpw_precheck.py license yaml manifest makefile consistency xor --pdk_root $PDK_ROOT --input_directory $TARGET_PATH --caravel_root $CARAVEL_ROOT --output_directory $OUTPUT_DIRECTORY"
+    volumes:
+      - 'gg_rram_4t1r:/home/rram_4t1r/'
+      - 'gg_sky130a_pdk:/home/rram_4t1r/precheck_pdks/skywater-pdk'
+    working_dir: /home/rram_4t1r/mpw_precheck
+volumes:
+  gg_rram_4t1r:
+      driver: vieux/sshfs:latest
+      driver_opts:
+        allow_other: ""
+        IdentityFile: "/root/.ssh/sshfs_docker"
+        sshcmd: "$USER@$HOST:/research/ece/lnis/USERS/ggore/projects/RRAM_related/testchip_4t1r"
+        sshfs_debug: ""
+  gg_sky130a_pdk:
+      driver: vieux/sshfs:latest
+      driver_opts:
+        allow_other: ""
+        IdentityFile: "/root/.ssh/sshfs_docker"
+        sshcmd: "$USER@$HOST:/research/ece/lnis/USERS/ggore/PDKs/skywater-pdk"
+        sshfs_debug: ""
+
+# docker run \
+# -v $PRECHECK_ROOT:$PRECHECK_ROOT \
+# -v $TARGET_PATH:$TARGET_PATH \
+# -v $PDK_ROOT:$PDK_ROOT \
+# -v $CARAVEL_ROOT:$CARAVEL_ROOT \
+# -u $(id -u $USER):$(id -g $USER) 
+# efabless/mpw_precheck:latest bash \
+# -c " cd $PRECHECK_ROOT ; python3 mpw_precheck.py license yaml manifest makefile consistency xor --pdk_root $PDK_ROOT --input_directory $TARGET_PATH --caravel_root $CARAVEL_ROOT --output_directory $OUTPUT_DIRECTORY"
+# output=$OUTPUT_DIRECTORY/logs/precheck.log
