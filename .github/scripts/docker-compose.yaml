@@ -11,7 +11,7 @@ services:
       - CARAVEL_ROOT=/home/rram_4t1r/caravel/
       - PRECHECK_ROOT=/home/rram_4t1r/mpw_precheck/
       - OUTPUT_DIRECTORY=/home/rram_4t1r/checks
-      - command="cd $PRECHECK_ROOT ; python3 mpw_precheck.py license yaml manifest makefile consistency xor --pdk_root $PDK_ROOT --input_directory $TARGET_PATH --caravel_root $CARAVEL_ROOT --output_directory $OUTPUT_DIRECTORY"
+      - command='cd $PRECHECK_ROOT ; python3 mpw_precheck.py license yaml manifest makefile consistency xor --pdk_root $PDK_ROOT --input_directory $TARGET_PATH --caravel_root $CARAVEL_ROOT --output_directory $OUTPUT_DIRECTORY'
     volumes:
       - 'gg_rram_4t1r:/home/rram_4t1r/'
       - 'gg_sky130a_pdk:/home/rram_4t1r/precheck_pdks/skywater-pdk'
